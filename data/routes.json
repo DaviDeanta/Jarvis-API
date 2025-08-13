@@ -1,0 +1,98 @@
+[
+  {
+    "path": "/user/login",
+    "method": "POST",
+    "description": "Realiza o login do usu\u00e1rio com email e senha.",
+    "requiresAuth": false,
+    "permissions": "public",
+    "requiredFields": [
+      "email",
+      "password"
+    ],
+    "id": 1
+  },
+  {
+    "path": "/activityLog/project/chaptertoc/:project_id",
+    "api": "lanstad",
+    "method": "GET",
+    "description": "Retorna logs de atividades do Chapter TOC de um projeto, com filtros por usu\u00e1rio, atividade e data.",
+    "requiresAuth": true,
+    "permissions": "editor",
+    "requiredFields": [
+      "params.project_id",
+      "query.user (opcional)",
+      "query.filter (opcional)",
+      "query.from_date (opcional)",
+      "query.to_date (opcional)"
+    ],
+    "id": 2
+  },
+  {
+    "path": "/activityLog/gallery/:company_id",
+    "api": "lanstad",
+    "method": "GET",
+    "description": "Returns gallery activity logs filtered by company ID, user, action type, and date range.",
+    "requiresAuth": true,
+    "permissions": "editor",
+    "requiredFields": [
+      "params.company_id",
+      "query.user (optional)",
+      "query.filter (optional)",
+      "query.from_date (optional)",
+      "query.to_date (optional)"
+    ],
+    "id": 3
+  },
+  {
+    "path": "/files/create",
+    "api": "files",
+    "method": "POST",
+    "description": "Creates a new gallery file and logs the upload action in tb_activity_log_gallery.",
+    "requiresAuth": true,
+    "permissions": "editor",
+    "requiredFields": [
+      "project_id",
+      "task_id",
+      "document_path",
+      "document_name",
+      "document_size",
+      "document_type",
+      "company_id",
+      "task_description",
+      "trigger",
+      "type"
+    ],
+    "id": 4
+  },
+  {
+    "path": "/gallery/delete/all",
+    "api": "files",
+    "method": "DELETE",
+    "description": "Deletes one or more gallery files and logs the delete action in tb_activity_log_gallery.",
+    "requiresAuth": true,
+    "permissions": "editor",
+    "requiredFields": [
+      "documents",
+      "project_id",
+      "company_id",
+      "az_storage_account"
+    ],
+    "id": 5,
+    "lastModifiedBranch": ""
+  },
+  {
+    "path": "/project/:project_id/layout-attributes",
+    "api": "lanstad",
+    "method": "GET",
+    "description": "Retorna os dados de layout do arquivo InDesign (_indd_PageData.json) de um projeto, com suporte ao storage antigo (Azure Blob) e ao novo storage (via banco de dados tb_xml_docbook_assets).",
+    "requiresAuth": true,
+    "permissions": "editor",
+    "requiredFields": [
+      "params.project_id",
+      "query.file_name",
+      "query.az_storage_account (opcional)",
+      "query.company_id (obrigat\u00f3rio se az_storage_account=true)"
+    ],
+    "id": 6
+  }
+]

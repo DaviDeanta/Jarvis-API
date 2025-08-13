@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "jarvis-api"
+version = "0.1.0"
+description = "Jarvis API com LangChain e Ollama"
+authors = ["Notti <seuemail@example.com>"]
+packages = [{ include = "app" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.110.0"
+uvicorn = { extras = ["standard"], version = "^0.27.0" }
+python-dotenv = "^1.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
