@@ -69,6 +69,3 @@ O sistema agora valida automaticamente:
 - Não use nomes genéricos como `"x"` ou `"field"`
 - Sempre valide se o que o usuário está descrevendo está completo
 - O sistema agora tem validação automática com Pydantic
-
-
-teste
