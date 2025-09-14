@@ -94,5 +94,171 @@
       "query.company_id (obrigat\u00f3rio se az_storage_account=true)"
     ],
     "id": 6
+  },
+  {
+    "method": "POST",
+    "path": "/files/create/assets",
+    "description": "Cria um arquivo de asset no sistema com validações específicas para tipo de publicação (book, journal, collection) last modified add digital bundle",
+    "requiresAuth": true,
+    "permissions": "authenticated",
+    "requiredFields": [
+      "project_id",
+      "task_id", 
+      "document_path",
+      "document_name",
+      "document_size",
+      "document_type",
+      "company_id",
+      "task_description",
+      "trigger",
+      "type"
+    ],
+    "optionalFields": [
+      "chapter_id",
+      "issue_id",
+      "public_link",
+      "az_storage_account"
+    ],
+    "payload": {
+      "project_id": "number",
+      "task_id": "number", 
+      "document_path": "string",
+      "document_name": "string",
+      "document_size": "string",
+      "document_type": "string",
+      "company_id": "number",
+      "task_description": "string",
+      "trigger": "string (default: 'assets')",
+      "type": "string (book|journal|collection)",
+      "chapter_id": "number (required if type=journal|collection)",
+      "issue_id": "number (required if type=journal|collection)",
+      "public_link": "string (optional)",
+      "az_storage_account": "boolean (optional)"
+    },
+    "validations": {
+      "type": "Must be 'book', 'journal' or 'collection'",
+      "journal/collection": "Requires either chapter_id OR issue_id (not both)",
+      "character_encoding": "Removes non-ASCII characters from task_description, document_path, and document_name"
+    },
+    "response": {
+      "success": "Returns created asset data",
+      "error": "Returns error message with status false"
+    },
+    "api": "files-upload",
+    "lastModifiedBranch": "Sprint/122",
+    "id": 7
+  },
+  {
+    "method": "GET",
+    "path": "/report/alt/text/images",
+    "description": "Obtém relatório de geração de texto alternativo para imagens dentro de um período específico. Permite filtros de data para último mês, 3 meses ou 6 meses",
+    "requiresAuth": true,
+    "permissions": "alt_text_report OR client_alt_text_report",
+    "requiredFields": [
+      "start_date",
+      "end_date"
+    ],
+    "optionalFields": [],
+    "queryParams": {
+      "start_date": "string (ISO format: YYYY-MM-DDTHH:mm:ss.sssZ)",
+      "end_date": "string (ISO format: YYYY-MM-DDTHH:mm:ss.sssZ)"
+    },
+    "validations": {
+      "date_range": "Maximum 186 days (approximately 6 months)",
+      "date_format": "Must be valid ISO date format",
+      "date_order": "end_date must be after start_date",
+      "permissions": "User must have either alt_text_report OR client_alt_text_report permission"
+    },
+    "response": {
+      "success": "Returns array of alt text generation records with project details, company info, and image counts",
+      "error_400": "Invalid date format or range exceeded",
+      "error_403": "Insufficient permissions to view projects"
+    },
+    "api": "lanstad",
+    "lastModifiedBranch": "Sprint/122",
+    "id": 8
+  },
+  {
+    "method": "POST",
+    "path": "/activity-log/project/chaptertoc",
+    "description": "Inserts a new chapter TOC activity log entry.",
+    "requiresAuth": true,
+    "permissions": "authenticated",
+    "requiredFields": [
+      "body.project_id",
+      "body.chaptertoc_id",
+      "body.activity",
+      "body.description"
+    ],
+    "api": "lanstad",
+    "lastModifiedBranch": "sprint/122",
+    "id": 9
+  },
+  {
+    "method": "POST",
+    "path": "/pro-editor/generate/bookpdf",
+    "description": "Generates a Book PDF and logs the activity.",
+    "requiresAuth": true,
+    "permissions": "editor",
+    "requiredFields": [
+      "body.project_id",
+      "body.company_id",
+      "body.chapter_id",
+      "body.task_id",
+      "body.milestone_id",
+      "body.chapter_open_type",
+      "body.book_divider",
+      "body.chapter_after_book_divider"
+    ],
+    "api": "lanstad",
+    "lastModifiedBranch": "sprint/122",
+    "id": 10
+  },
+  {
+    "method": "PUT",
+    "path": "/pro-editor/cancel/bookpdf",
+    "description": "Cancels a Book PDF generation and logs the activity.",
+    "requiresAuth": true,
+    "permissions": "editor",
+    "requiredFields": [
+      "body.project_id",
+      "body.chapter_id",
+      "body.task_id",
+      "body.milestone_id"
+    ],
+    "api": "lanstad",
+    "lastModifiedBranch": "sprint/122",
+    "id": 11
+  },
+  {
+    "method": "POST",
+    "path": "/VXE/generate/chapter/pdf",
+    "description": "Generates a PDF file from XML content, with support for math equations and abstract handling. e adicionei logs pro pdf",
+    "requiresAuth": true,
+    "permissions": "vxe_access",
+    "requiredFields": [
+      "body.project_id",
+      "body.filename",
+      "body.user_id",
+      "body.chapter_id",
+      "body.task_id"
+    ],
+    "api": "service",
+    "lastModifiedBranch": "sprint/122",
+    "id": 12
+  },
+  {
+    "method": "POST",
+    "path": "/project/upload/delete/files",
+    "description": "Deletes a project file by type, removing the stored link and filename from the database and deleting the blob file from Azure Storage. Supports pm_brief, material_analysis, and non_standard_template_name file types.",
+    "requiresAuth": true,
+    "permissions": "project_access",
+    "requiredFields": [
+      "body.project_id",
+      "body.type"
+    ],
+    "api": "lanstad",
+    "lastModifiedBranch": "release/pre-prod/121",
+    "id": 13
   }
 ]

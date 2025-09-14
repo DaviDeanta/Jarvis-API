@@ -10,6 +10,12 @@ def read_routes():
     with open(ROUTES_FILE, "r") as f:
         return json.load(f)
 
+def save_routes(routes):
+    """Save routes list to file"""
+    with open(ROUTES_FILE, "w") as f:
+        json.dump(routes, f, indent=2)
+    return True
+
 def save_or_update_route(route_data):
     routes = read_routes()
     updated = False
@@ -21,6 +27,5 @@ def save_or_update_route(route_data):
     if not updated:
         route_data["id"] = max([r.get("id", 0) for r in routes], default=0) + 1
         routes.append(route_data)
-    with open(ROUTES_FILE, "w") as f:
-        json.dump(routes, f, indent=2)
+    save_routes(routes)
     return True, "Updated" if updated else "Added"

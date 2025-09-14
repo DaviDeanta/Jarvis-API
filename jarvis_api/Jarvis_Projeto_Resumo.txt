@@ -1,0 +1,80 @@
+# Projeto Jarvis - Estrutura e Objetivo (API) - ATUALIZADO
+
+## Objetivo
+Desenvolver um assistente pessoal local com IA utilizando **Python**, **LangChain** e **Ollama**, focado inicialmente em funcionar como uma **API** que armazena e organiza rotas de teste, pendências e instruções para automação.
+
+Essa API é usada por um GPT personalizado (via Actions) que interage com o Jarvis local, realizando operações de leitura e escrita nos arquivos JSON locais.
+
+---
+
+## Estrutura Atual (ATUALIZADA)
+
+```
+Jarvis/
+├── app/
+│   ├── routes/
+│   │   └── route_routes.py        # Mapeia /api/v1/routes → route_controller
+│   ├── controllers/
+│   │   └── route_controller.py    # Lida com requisição e resposta + validação
+│   ├── services/
+│   │   └── route_service.py       # Regras de negócio + validação
+│   ├── dao/
+│   │   └── route_dao.py           # Leitura e escrita em JSON
+│   ├── models.py                  # NOVO: Modelos Pydantic para validação
+│   └── api.py                     # Inicia o FastAPI com documentação automática
+├── data/
+│   ├── routes.json
+│   └── tests_done.json
+├── main.py                        # Ponto de entrada da aplicação
+├── .env                          # Variáveis de ambiente (ex: OLLAMA_BASE_URL)
+└── pyproject.toml                # Gerenciado com Poetry
+```
+
+---
+
+## Tecnologias
+- **Python 3.12**
+- **Poetry** para gerenciamento de dependências
+- **FastAPI** para construção da API
+- **Pydantic** para validação de dados
+- **LangChain** e **Ollama** como backend de IA
+- **dotenv** para variáveis de ambiente
+- **Rich** para logs e mensagens coloridas
+
+---
+
+## API Endpoints Disponíveis
+- `GET /api/v1/routes` - Listar todas as rotas
+- `POST /api/v1/routes` - Criar nova rota
+- `PUT /api/v1/routes/{id}` - Atualizar rota existente
+- `DELETE /api/v1/routes/{id}` - Deletar rota
+- `GET /docs` - Documentação Swagger UI
+- `GET /redoc` - Documentação ReDoc
+
+---
+
+## Integração com GPT
+A API Jarvis é consumida via **ChatGPT com Actions**, utilizando um GPT customizado chamado **JarvisGPT-Online**, configurado para:
+- Analisar e atualizar o `routes.json` e `tests_done.json`
+- Sugerir testes com base nas rotas
+- Ajudar com estrutura Swagger
+- Validar campos e lógica de resposta da API
+- **NOVO**: Usar validação automática com Pydantic
+
+---
+
+## Melhorias Implementadas
+- ✅ Validação automática com Pydantic
+- ✅ Documentação automática da API
+- ✅ Tratamento de erros centralizado
+- ✅ Arquitetura em camadas
+- ✅ Endpoints CRUD completos
+- ✅ Type hints em todo o código
+
+---
+
+## Próximos Passos
+- Expandir endpoints para incluir testes (`/tests`), workflows e estatísticas
+- Criar controle de histórico e log de alterações
+- Manter consistência entre `routes.json` e `tests_done.json`
+- Adicionar autenticação (futuramente)

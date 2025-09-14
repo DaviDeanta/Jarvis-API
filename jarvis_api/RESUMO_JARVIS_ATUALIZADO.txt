@@ -1,0 +1,76 @@
+📌 RESUMO GERAL DO PROJETO JARVIS - by Notti (ATUALIZADO)
+
+---
+
+🧠 OBJETIVO:
+Jarvis é um assistente backend criado para ajudar Notti no controle de rotas, testes e regras de negócio em múltiplas APIs de um ecossistema Python (FastAPI).
+
+Ele utiliza arquivos JSON como banco de dados local, tem integração com IA local (Ollama) e com o ChatGPT (via OpenAPI Actions) para automatizar o fluxo de desenvolvimento de rotas, testes e validações.
+
+---
+
+📁 ESTRUTURA ATUAL DO PROJETO:
+
+- /main.py → ponto de entrada FastAPI
+- /app/
+  - /api.py → configuração principal da API
+  - /models.py → modelos Pydantic para validação
+  - /controllers/ → controladores com validação
+  - /services/ → lógica de negócio
+  - /dao/ → acesso a dados
+  - /routes/ → rotas da API organizadas
+- /data/
+  - routes.json → lista de rotas registradas (com id numérico e campo "api")
+  - tests_done.json → testes feitos por rota
+- /jarvis_api/ → documentação e instruções
+
+---
+
+✅ FUNCIONALIDADES ATUAIS:
+
+1. **API REST Completa:**
+   - `GET /api/v1/routes` - Listar todas as rotas
+   - `POST /api/v1/routes` - Criar nova rota
+   - `PUT /api/v1/routes/{id}` - Atualizar rota existente
+   - `DELETE /api/v1/routes/{id}` - Deletar rota
+
+2. **Validação Automática:**
+   - Validação com Pydantic
+   - Validação de métodos HTTP
+   - Validação de campos obrigatórios
+   - Tratamento de erros robusto
+
+3. **Documentação Automática:**
+   - Swagger UI em `/docs`
+   - ReDoc em `/redoc`
+   - Documentação automática dos endpoints
+
+4. **Arquitetura em Camadas:**
+   - Controllers com validação
+   - Services com lógica de negócio
+   - DAO para acesso a dados
+   - Separação clara de responsabilidades
+
+5. **Integração com IA:**
+   - Campo `"api"` identifica a origem (ex: "lanstad", "sas", "editorial")
+   - Controle de versão com `lastModifiedBranch`
+   - Logs de mudanças automáticos
+
+---
+
+🔁 MELHORIAS IMPLEMENTADAS:
+
+- ✅ Validação automática com Pydantic
+- ✅ Tratamento de erros centralizado
+- ✅ Documentação automática da API
+- ✅ Arquitetura em camadas
+- ✅ Type hints em todo o código
+- ✅ Endpoints CRUD completos
+
+---
+
+🧠 VISÃO GERAL:
+Jarvis evolui com o uso. É um copiloto de backend feito para acompanhar o desenvolvimento real, com testes, validação de regras e sugestões de código automatizadas. Agora com validação automática e documentação completa!
+
+👤 Autor: Notti
+📁 Projeto: Jarvis - IA para APIs Python e automação de testes

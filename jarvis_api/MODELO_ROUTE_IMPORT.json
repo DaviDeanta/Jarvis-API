@@ -1,0 +1,10 @@
+{
+  "method": "GET",
+  "path": "/project/{id}/milestones",
+  "description": "Retorna todos os milestones do projeto com base no ID",
+  "requiresAuth": true,
+  "permissions": "editor",
+  "requiredFields": ["params.id"],
+  "api": "lanstad",
+  "lastModifiedBranch": "main"
+}
